@@ -1,0 +1,39 @@
+// IR sensor based motor control
+
+const int irPin = 2;     // IR sensor pin
+const int IN1 = 4;       // Motor driver pin
+const int IN2 = 5;
+const int IN3 = 6;
+const int IN4 = 7;
+
+void setup() {
+  pinMode(irPin, INPUT);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  Serial.begin(9600);    // Start Serial Monitor at 9600 baud
+  Serial.println("IR Sensor Test Started...");
+}
+
+void loop() {
+  int irValue = digitalRead(irPin);
+
+  if (irValue == HIGH) {   // Object detected (common for most IR sensors)
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);   // Turn motors forward
+
+    Serial.println("FORWARD");
+  } else {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);   // Stop motors
+
+    Serial.println("STOP");
+  }
+}
